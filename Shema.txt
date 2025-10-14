@@ -1,0 +1,92 @@
+
+
+→ 1 – Podatki o kmetijah
+  → 1 – Iskanje po ID
+    = Vrne podatke o določeni kmetiji (ime, vrsta, kraj, regija, kontakt)
+      → 1 – Izdelki kmetije
+        = Prikaže seznam izdelkov te kmetije
+      → 2 – Nazaj
+        ~> preveže na Podatki o kmetijah
+      → 0 – Nazaj na začetni zaslon
+
+  → 2 – Iskanje po imenu kmetije
+    = Prikaže seznam ujemajočih kmetij
+      ~> preveže na Podatki o kmetiji (po ID)
+
+  → 3 – Prikaži vse kmetije po regiji
+    = Vrne seznam kmetij razvrščenih po regijah
+
+  → 0 – Nazaj na začetni zaslon
+
+⸻
+
+→ 2 – Izdelki
+  → 1 – Iskanje po ID izdelka
+    = Vrne podatke o izdelku (ime, vrsta, cena, zaloga, povprečna ocena, kmetija)
+      → 1 – Podrobnosti o kmetiji
+        ~> preveže na Podatki o kmetijah
+      → 2 – Ocene izdelka
+        ~> preveže na Ocene
+      → 0 – Nazaj na začetni zaslon
+
+  → 2 – Iskanje po vrsti izdelka
+    = Prikaže vse izdelke iz izbrane kategorije
+      → 1 – Izberi izdelek za podrobnosti
+        ~> preveže na Iskanje po ID izdelka
+
+  → 3 – Najbolje ocenjeni izdelki
+    = Vrne seznam top izdelkov po povprečni oceni
+
+  → 0 – Nazaj na začetni zaslon
+
+⸻
+
+→ 3 – Naročila
+  → 1 – Iskanje po ID naročila
+    = Vrne osnovne podatke o naročilu (datum, status, skupna cena)
+      → 1 – Postavke naročila
+        = Prikaže vse izdelke v tem naročilu
+      → 2 – Uporabnik naročila
+        ~> preveže na Podatki o uporabnikih
+      → 0 – Nazaj na začetni zaslon
+
+  → 2 – Iskanje po uporabniku
+    = Vrne seznam naročil izbranega uporabnika
+
+  → 3 – Iskanje po datumu
+    = Vrne naročila v izbranem časovnem obdobju
+
+  → 0 – Nazaj na začetni zaslon
+
+⸻
+
+→ 4 – Uporabniki
+  → 1 – Iskanje po ID
+    = Vrne osnovne podatke o uporabniku (ime, tip, email)
+      → 1 – Naročila uporabnika
+        ~> preveže na Naročila
+      → 2 – Kmetije uporabnika (če je kmet)
+        ~> preveže na Podatki o kmetijah
+      → 0 – Nazaj na začetni zaslon
+
+  → 2 – Iskanje po imenu
+    = Prikaže seznam uporabnikov
+      ~> preveže na Iskanje po ID uporabnika
+
+  → 0 – Nazaj na začetni zaslon
+
+⸻
+
+→ 5 – Ocene
+  → 1 – Iskanje po ID ocene
+    = Vrne podrobnosti ocene (ocena, komentar, datum, uporabnik, izdelek)
+  → 2 – Iskanje po izdelku
+    = Vrne vse ocene za določen izdelek
+  → 3 – Iskanje po uporabniku
+    = Vrne vse ocene, ki jih je oddal določen uporabnik
+  → 0 – Nazaj na začetni zaslon
+
+⸻
+
+→ 0 – Izhod
+
