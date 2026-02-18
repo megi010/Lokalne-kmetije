@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Lokalne kmetije - Izdelki</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        nav { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Domov</a> | 
+        <a href="/farms">Kmetije</a> | 
+        <a href="/products">Izdelki</a>
+    </nav>
+
+    {% if regija %}
+        <h1>Izdelki v regiji: {{ regija }}</h1>
+    {% else %}
+        <h1>Vsi izdelki</h1>
+    {% endif %}
+
+    <table>
+        <tr>
+            <th>Izdelek</th>
+            <th>Vrsta</th>
+            <th>Količina</th>
+            <th>Cena</th>
+            <th>Zaloga</th>
+            <th>Kmetija</th>
+        </tr>
+        {% for i in izdelki %}
+        <tr>
+            <td>{{ i.ime_izdelka }}</td>
+            <td>{{ i.vrsta }}</td>
+            <td>{{ i.kolicina }}</td>
+            <td>{{ i.cena }} €</td>
+            <td>{{ i.zaloga }}</td>
+            <td>{{ i.ime_kmetije }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
