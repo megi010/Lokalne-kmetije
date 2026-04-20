@@ -1,4 +1,4 @@
-
+SHEMA
 
 → 1 – Podatki o kmetijah
   → 1 – Iskanje po ID
