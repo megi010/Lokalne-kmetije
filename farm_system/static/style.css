@@ -1,0 +1,387 @@
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;500;600&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #FDF6EC;
+    color: #3D2B1A;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    background: #E63946;
+    color: #fff;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 1rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: #fff;
+    border-bottom: 4px solid #F4A228;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+  }
+
+  .site-logo {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #2D6A4F;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #E63946;
+    border-radius: 50%;
+    margin-bottom: 2px;
+  }
+
+  .site-nav {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .site-nav a {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #3D2B1A;
+    text-decoration: none;
+    padding: 7px 16px;
+    border-radius: 30px;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .site-nav a:hover { background: #FEF3DC; color: #2D6A4F; }
+  .site-nav a.active { background: #2D6A4F; color: #fff; }
+
+  .btn-login {
+    background: #E63946;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 6px;
+    transition: background 0.15s;
+  }
+  .btn-login:hover { background: #c0303b; }
+
+  /* HERO */
+  .hero {
+    background: #2D6A4F;
+    padding: 3rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-stripes {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 18px,
+      rgba(255,255,255,0.04) 18px,
+      rgba(255,255,255,0.04) 36px
+    );
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: #F4A228;
+    color: #3D2B1A;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 16px;
+    border-radius: 30px;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .hero h1 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 42px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    position: relative;
+    line-height: 1.2;
+  }
+
+  .hero p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.85);
+    max-width: 500px;
+    margin: 0 auto 1.75rem;
+    position: relative;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    position: relative;
+  }
+
+  .btn-primary {
+    background: #F4A228;
+    color: #3D2B1A;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 28px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .btn-primary:hover { background: #fbb740; transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.6);
+    border-radius: 30px;
+    padding: 12px 28px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+  /* STATS STRIP */
+  .stats-strip {
+    background: #F4A228;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    padding: 1rem 2rem;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #3D2B1A;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #5C3D11;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* MAIN */
+  .main {
+    max-width: 980px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.25rem;
+  }
+
+  .section-title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #2D6A4F;
+  }
+
+  .section-pill {
+    background: #FEF3DC;
+    border: 1.5px solid #F4A228;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #854F0B;
+    padding: 3px 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* PRODUCT CARDS */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 3rem;
+  }
+
+  .card {
+    background: #fff;
+    border: 2px solid #EDE0CF;
+    border-radius: 16px;
+    padding: 1.25rem;
+    transition: border-color 0.15s, transform 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    border-color: #F4A228;
+    transform: translateY(-3px);
+  }
+
+  .card-emoji {
+    font-size: 36px;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .badge-med { background: #FEF3DC; color: #854F0B; }
+  .badge-sadje { background: #FFE8E8; color: #9B2226; }
+  .badge-mlecni { background: #E8F4FF; color: #1A5276; }
+  .badge-zelenjava { background: #E8F8F0; color: #1B5E3B; }
+
+  .card h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: #3D2B1A;
+    margin-bottom: 0.2rem;
+  }
+
+  .card-farm {
+    font-size: 12px;
+    color: #8B6F5C;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-price {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #E63946;
+  }
+
+  .card-stock {
+    font-size: 11px;
+    color: #8B6F5C;
+    background: #F9F3EC;
+    padding: 3px 8px;
+    border-radius: 10px;
+  }
+
+  /* FARMS TABLE */
+  .table-wrapper {
+    background: #fff;
+    border: 2px solid #EDE0CF;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 3rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  thead tr { background: #2D6A4F; }
+
+  thead th {
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    text-align: left;
+    padding: 12px 18px;
+    letter-spacing: 0.03em;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  tbody tr { border-bottom: 1.5px solid #F9F3EC; transition: background 0.1s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #FFFBF5; }
+
+  tbody td { padding: 11px 18px; color: #3D2B1A; }
+
+  .regija-link {
+    background: #E8F8F0;
+    color: #1B5E3B;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    transition: background 0.1s;
+  }
+  .regija-link:hover { background: #C8EDDB; }
+
+  .web-link {
+    color: #E63946;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .web-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  .site-footer {
+    background: #3D2B1A;
+    color: #C8A882;
+    text-align: center;
+    padding: 1.75rem;
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 1rem;
+  }
+
+  .site-footer a { color: #F4A228; text-decoration: none; }
+  .site-footer a:hover { text-decoration: underline; }

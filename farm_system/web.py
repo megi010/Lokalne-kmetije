@@ -36,5 +36,15 @@ def region(ime_regije):
     """, (ime_regije,))
     return render_template('products.html', izdelki=izdelki, regija=ime_regije)
 
+@app.route('/add_to_cart/<int:id_izdelka>')
+def add_cart(id_izdelka):
+    """Doda izdelek v kosarico"""
+    izdelki = query("""
+        SELECT i.*, k.ime_kmetije, k.regija
+        FROM Izdelek i
+        JOIN Kmetija k ON i.id_kmetije = k.id
+        WHERE k.regija = ?
+    """, (id_izdelka,))
+    return render_template('products.html', izdelki=izdelki, id=id_izdelka)
 if __name__ == '__main__':
     app.run(debug=True)
