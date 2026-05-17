@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS Kmetija;
 DROP TABLE IF EXISTS Uporabnik;
 
 CREATE TABLE Uporabnik (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY AUTOINCREMENT, --AUTOINCREMENT omogoča samodejno povečevanje ID-ja ob vsakem vnosu novega uporabnika
     ime TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
     geslo TEXT NOT NULL,
@@ -17,6 +17,7 @@ CREATE TABLE Kmetija (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     ime_kmetije TEXT NOT NULL,
     vrsta_kmetije TEXT,
+    delovni_cas TEXT,
     kraj TEXT,
     regija TEXT,
     telefonska_stevilka TEXT,
@@ -33,7 +34,6 @@ CREATE TABLE Izdelek (
     cena REAL NOT NULL,
     zaloga INTEGER DEFAULT 0,
     id_kmetije INTEGER,
-    povprecna_ocena REAL DEFAULT 0,
     FOREIGN KEY (id_kmetije) REFERENCES Kmetija(id)
 );
 
@@ -41,8 +41,7 @@ CREATE TABLE Narocilo (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     id_uporabnika INTEGER,
     datum TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status TEXT,
-    skupna_cena REAL,
+    status TEXT CHECK(status IN ('novo', 'v obdelavi', 'dokončano', 'zaključeno', 'preklicano')) NOT NULL,
     FOREIGN KEY (id_uporabnika) REFERENCES Uporabnik(id)
 );
 
@@ -51,7 +50,7 @@ CREATE TABLE Postavka_narocila (
     id_narocila INTEGER,
     id_izdelka INTEGER,
     kolicina INTEGER,
-    cena REAL,
+    cena_ob_nakupu REAL,
     FOREIGN KEY (id_narocila) REFERENCES Narocilo(id),
     FOREIGN KEY (id_izdelka) REFERENCES Izdelek(id)
 );

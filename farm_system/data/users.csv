@@ -1,6 +1,6 @@
 id,ime,email,geslo,tip
-upr-7042u,Janez Novak,janez.novak@kmetija-novak.si,hash_gesla_1,lastnik kmetije
-upr-5446h,Ana Kranjc,ana.kranjc@gmail.com,hash_gesla_2,kupec
-upr-3246a,Živa Hribar,ziva.hribar@kmet.si,hash_gesla_3,admin
-upr-7193b,Mojca Pok,mojca.pok@kmetija-zelenigric.si,hash_gesla_4,lastnik kmetije
-upr-0139a,Cene Čebelar,cene@med.si,hash_gesla_5,lastnik kmetije
+1,Janez Novak,janez.novak@kmetija-novak.si,hash_gesla_1,lastnik kmetije
+2,Ana Kranjc,ana.kranjc@gmail.com,hash_gesla_2,kupec
+3,Živa Hribar,ziva.hribar@kmet.si,hash_gesla_3,admin
+4,Mojca Pok,mojca.pok@kmetija-zelenigric.si,hash_gesla_4,lastnik kmetije
+5,Cene Čebelar,cene@med.si,hash_gesla_5,lastnik kmetije

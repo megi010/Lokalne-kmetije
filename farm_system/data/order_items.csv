@@ -1,4 +1,4 @@
-id,id_naročila,id_izdelka,količina,cena_ob_nakupu
-pst-7284z,nar-0004f,izd-1201t,1,6.99
-pst-5084i,nar-0004f,izd-6746g,2,2.50
-pst-1111a,nar-5041i,izd-5234f,5,1.49
+id,id_narocila,id_izdelka,kolicina,cena_ob_nakupu
+55,22,11,1,6.99
+104,22,33,2,2.50
+133,422,33,5,1.49

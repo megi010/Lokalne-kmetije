@@ -1,0 +1,4 @@
+id,ime_izdelka,vrsta,kolicina,cena,zaloga,id_kmetije
+11,Cvetlični med,med,900g,6.99,13,1
+13,Jabolka Gala,sadje,1kg,1.49,50,33
+444,Domači jogurt,mlečni izdelki,500ml,2.50,20,321
