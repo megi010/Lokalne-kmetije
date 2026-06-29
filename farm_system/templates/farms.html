@@ -27,7 +27,15 @@
             <td>{{ k.vrsta_kmetije }}</td>
             <td>{{ k.kraj }}</td>
             <td><a href="/region/{{ k.regija }}">{{ k.regija }}</a></td>
-            <td>{{ k.telefonska_stevilka }}</td>
+            <td>
+
+                {{ k.telefonska_stevilka[:3] }}
+
+                {{ k.telefonska_stevilka[3:6] }}
+
+                {{ k.telefonska_stevilka[6:] }}
+
+            </td>
             <td><a href="{{ k.spletna_stran }}" target="_blank">{{ k.spletna_stran }}</a></td>
         </tr>
         {% endfor %}

@@ -1,0 +1,11 @@
+# Generirana baza
+farm.db
+farm_system/farm.db
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtualno okolje
+.venv/
+venv/

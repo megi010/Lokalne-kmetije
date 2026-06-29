@@ -1,5 +1,5 @@
-from flask import Flask, render_template
-from database import query
+from flask import Flask, render_template, redirect, url_for
+from database import query, execute #za branje in pisanje baze
 
 app = Flask(__name__)
 
@@ -37,14 +37,16 @@ def region(ime_regije):
     return render_template('products.html', izdelki=izdelki, regija=ime_regije)
 
 @app.route('/add_to_cart/<int:id_izdelka>')
-def add_cart(id_izdelka):
+def add_to_cart(id_izdelka):
     """Doda izdelek v kosarico"""
+    trenutni_uporabnik_id = 2
     izdelki = query("""
-        SELECT i.*, k.ime_kmetije, k.regija
-        FROM Izdelek i
-        JOIN Kmetija k ON i.id_kmetije = k.id
-        WHERE k.regija = ?
+        SELECT cena
+        FROM Izdelek
+        WHERE id = ?
     """, (id_izdelka,))
+    cena_izdelka = izdelki[0]['cena']
     return render_template('products.html', izdelki=izdelki, id=id_izdelka)
+
 if __name__ == '__main__':
     app.run(debug=True)

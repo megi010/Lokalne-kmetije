@@ -20,7 +20,11 @@ CREATE TABLE Kmetija (
     delovni_cas TEXT,
     kraj TEXT,
     regija TEXT,
-    telefonska_stevilka TEXT,
+    telefonska_stevilka TEXT
+    CHECK (
+    LENGTH(telefonska_stevilka)=9
+    AND telefonska_stevilka GLOB '[0-9]*'
+    ),
     spletna_stran TEXT,
     id_uporabnika INTEGER,
     FOREIGN KEY (id_uporabnika) REFERENCES Uporabnik(id)

@@ -6,7 +6,8 @@ DB_PATH = os.path.join(os.path.dirname(__file__), 'farm.db')
 def get_connection():
     """Vzpostavi povezavo z SQLite bazo."""
     conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row  # Omogoča dostop do podatkov po imenih stolpcev
+    conn.row_factory = sqlite3.Row # Omogoča dostop do podatkov po imenih stolpcev
+    conn.execute("PRAGMA foreign_keys = ON")   
     return conn
 
 def query(sql, params=()):
