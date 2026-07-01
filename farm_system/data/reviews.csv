@@ -1,3 +1,7 @@
 id,id_uporabnika,id_izdelka,ocena,komentar,datum
-2,9,11,5,Odličen med!,2025-09-19
-55,12,3,4,Zelo sočna jabolka.,2025-09-20
+1,2,1,5,Odličen med!,2025-03-05
+2,8,3,4,Sveža in hrustljava.,2025-03-12
+3,9,6,5,Zelo sočna jabolka.,2025-04-08
+4,2,8,3,Okusen jogurt a malo redek.,2025-04-22
+5,9,1,4,Dober med a malce drag.,2025-04-10
+6,10,9,5,Izvrsten domači sir.,2025-05-01

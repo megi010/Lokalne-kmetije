@@ -4,3 +4,8 @@ id,ime,email,geslo,tip
 3,Živa Hribar,ziva.hribar@kmet.si,hash_gesla_3,admin
 4,Mojca Pok,mojca.pok@kmetija-zelenigric.si,hash_gesla_4,lastnik kmetije
 5,Cene Čebelar,cene@med.si,hash_gesla_5,lastnik kmetije
+6,Marko Kos,marko.kos@pri-kosu.si,hash_gesla_6,lastnik kmetije
+7,Eva Zupan,eva.zupan@ekovrt.si,hash_gesla_7,lastnik kmetije
+8,Tomaž Vidmar,tomaz.vidmar@gmail.com,hash_gesla_8,kupec
+9,Petra Zorko,petra.zorko@gmail.com,hash_gesla_9,kupec
+10,Luka Bizjak,luka.bizjak@gmail.com,hash_gesla_10,kupec

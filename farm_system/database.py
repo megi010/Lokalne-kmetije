@@ -7,7 +7,7 @@ def get_connection():
     """Vzpostavi povezavo z SQLite bazo."""
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row # Omogoča dostop do podatkov po imenih stolpcev
-    conn.execute("PRAGMA foreign_keys = ON")   
+    conn.execute("PRAGMA foreign_keys = ON")   #preveri veljavnost
     return conn
 
 def query(sql, params=()):

@@ -1,3 +1,6 @@
 id,ime_kmetije,vrsta_kmetije,delovni_cas,kraj,regija,telefonska_stevilka,spletna_stran,id_uporabnika
-33,Čebelarstvo Medeni Raj,Med,9:00-19:00,Tolmin,Goriška,041459749,https://www.medeni-raj.si,133
-13,Kmetija Zeleni grič,Ekološka zelenjava,8:00-17:00,Novo mesto,Jugovzhodna slovenija,073084567,https://www.kmetija-zelenigric.si,654
+1,Čebelarstvo Medeni Raj,Med,9:00-19:00,Tolmin,Goriška,041459749,https://www.medeni-raj.si,5
+2,Kmetija Zeleni grič,Ekološka zelenjava,8:00-17:00,Novo mesto,Jugovzhodna Slovenija,073084567,https://www.kmetija-zelenigric.si,4
+3,Kmetija Novak,Sadjarstvo,8:00-18:00,Kranj,Gorenjska,040112233,https://www.kmetija-novak.si,1
+4,Kmetija pri Kosu,Mlečni izdelki,7:00-16:00,Maribor,Štajerska,031556677,https://www.pri-kosu.si,6
+5,Eko vrt Zupan,Zelenjava in jajca,9:00-17:00,Ljubljana,Osrednjeslovenska,051889900,https://www.ekovrt-zupan.si,7

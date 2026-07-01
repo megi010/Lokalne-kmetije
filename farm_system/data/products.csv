@@ -1,4 +1,11 @@
 id,ime_izdelka,vrsta,kolicina,cena,zaloga,id_kmetije
-11,Cvetlični med,med,900g,6.99,13,1
-13,Jabolka Gala,sadje,1kg,1.49,50,33
-444,Domači jogurt,mlečni izdelki,500ml,2.50,20,321
+1,Cvetlični med,med,900g,6.99,13,1
+2,Gozdni med,med,500g,8.50,8,1
+3,Bio solata,zelenjava,1 kos,1.20,40,2
+4,Paradižnik,zelenjava,1kg,2.80,25,2
+5,Korenje,zelenjava,1kg,1.50,30,2
+6,Jabolka Gala,sadje,1kg,1.49,50,3
+7,Hruške viljamovke,sadje,1kg,1.99,35,3
+8,Domači jogurt,mlečni izdelki,500ml,2.50,20,4
+9,Poltrdi sir,mlečni izdelki,500g,7.90,12,4
+10,Domača jajca,jajca,10 kos,3.20,18,5
