@@ -2,20 +2,36 @@
 <html lang="sl">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Lokalne kmetije{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Kmetijski trg{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <nav>
-        <a href="/">Domov</a> | 
-        <a href="/farms">Kmetije</a> | 
-        <a href="/products">Izdelki</a> |
-        <a href="/login">Prijava</a>
-    </nav>
+    <div class="topbar">Domači izdelki neposredno od lokalnih kmetij</div>
 
-    <div class="container">
-        {% block content %}
-        {% endblock %}
-    </div>
+    <header class="site-header">
+        <a href="{{ url_for('index') }}" class="site-logo">
+            <span class="logo-dot"></span> Kmetijski trg
+        </a>
+        <nav class="site-nav">
+            <nav class="site-nav">
+            <a href="{{ url_for('index') }}" class="{{ 'active' if request.path == '/' }}">Domov</a>
+            <a href="{{ url_for('farms') }}" class="{{ 'active' if request.path == '/farms' }}">Kmetije</a>
+            <a href="{{ url_for('products') }}" class="{{ 'active' if request.path == '/products' }}">Izdelki</a>
+            
+            <a href="/cart" class="{{ 'active' if request.path == '/cart' }}">🛒 Košarica</a>
+            
+            <a href="/login" class="btn-login">Prijava</a>
+        </nav>
+            
+        </nav>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <footer class="site-footer">
+        Kmetijski trg &middot; seminarska naloga pri predmetu Podatkovne baze &middot;
+        <a href="{{ url_for('products') }}">Prebrskaj izdelke</a>
+    </footer>
 </body>
 </html>

@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="sl">
-<head>
-    <meta charset="UTF-8">
-    <title>Lokalne kmetije - Seznam kmetij</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <nav>
-        <a href="/">Kmetije</a> | 
-        <a href="/products">Izdelki</a>
-    </nav>
+{% extends "base.html" %}
+
+{% block title %}Domača stran - Kmetijski trg{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="section-header">
+        <h2 class="section-title">Dobrodošli na lokalni tržnici</h2>
+    </div>
 
     <h1>Seznam lokalnih kmetij</h1>
-    <table>
+        <table>
         <tr>
             <th>Ime kmetije</th>
             <th>Vrsta</th>
@@ -40,5 +37,6 @@
         </tr>
         {% endfor %}
     </table>
-</body>
-</html>
+
+</main>
+{% endblock %}

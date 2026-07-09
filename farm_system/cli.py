@@ -73,7 +73,10 @@ def statistika():
 
     # Povprečna ocena izdelka
     povprecne_ocene = query("""
-        SELECT ime_izdelka, povprecna_ocena FROM Izdelek ORDER BY povprecna_ocena DESC
+        SELECT Izdelek.ime_izdelka, AVG(Ocena.ocena) AS povprecna_ocena
+                            FROM Izdelek 
+                            JOIN Ocena ON Izdelek.id = Ocena.id_izdelka
+                            GROUP BY Izdelek.ime_izdelka
     """)
     print("\nPovprečne ocene izdelkov:")
     for o in povprecne_ocene:

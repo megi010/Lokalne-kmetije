@@ -1,42 +1,42 @@
-<!DOCTYPE html>
-<html lang="sl">
-<head>
-    <meta charset="UTF-8">
-    <title>Lokalne kmetije - Izdelki</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <nav>
-        <a href="/">Domov</a> | 
-        <a href="/farms">Kmetije</a> | 
-        <a href="/products">Izdelki</a>
-    </nav>
+{% extends "base.html" %}
+{% block title %}Kmetijski trg - Izdelki{% endblock %}
 
-    {% if regija %}
-        <h1>Izdelki v regiji: {{ regija }}</h1>
-    {% else %}
-        <h1>Vsi izdelki</h1>
-    {% endif %}
+{% block content %}
+<main class="main">
+    <div class="section-header">
+        {% if regija %}
+            <h2 class="section-title">Izdelki v regiji {{ regija }}</h2>
+        {% else %}
+            <h2 class="section-title">Vsi izdelki</h2>
+        {% endif %}
+        <span class="section-pill">{{ izdelki|length }} izdelkov</span>
+    </div>
 
-    <table>
-        <tr>
-            <th>Izdelek</th>
-            <th>Vrsta</th>
-            <th>Količina</th>
-            <th>Cena</th>
-            <th>Zaloga</th>
-            <th>Kmetija</th>
-        </tr>
+    {% set emoji = {'med':'🍯','sadje':'🍎','zelenjava':'🥬','mlečni izdelki':'🧀','jajca':'🥚'} %}
+    {% set badge = {'med':'badge-med','sadje':'badge-sadje','zelenjava':'badge-zelenjava','mlečni izdelki':'badge-mlecni','jajca':'badge-jajca'} %}
+
+    {% if izdelki %}
+    <div class="card-grid">
         {% for i in izdelki %}
-        <tr>
-            <td>{{ i.ime_izdelka }}</td>
-            <td>{{ i.vrsta }}</td>
-            <td>{{ i.kolicina }}</td>
-            <td>{{ i.cena }} €</td>
-            <td>{{ i.zaloga }}</td>
-            <td>{{ i.ime_kmetije }}</td>
-        </tr>
+        <div class="card">
+            <span class="card-emoji">{{ emoji.get(i.vrsta, '🌿') }}</span>
+            <span class="card-badge {{ badge.get(i.vrsta, 'badge-zelenjava') }}">{{ i.vrsta }}</span>
+            <h3>{{ i.ime_izdelka }}</h3>
+            <p class="card-farm">{{ i.ime_kmetije }} &middot; {{ i.kolicina }}</p>
+
+            <div class="card-footer">
+                <span class="card-price">{{ '%.2f'|format(i.cena) }} €</span>
+                <span class="card-stock">{{ i.zaloga }} kosov</span>
+            </div>
+            
+            <a href="/add_to_cart/{{ i.id }}" class="btn-primary" style="display: block; text-align: center; margin-top: 15px; text-decoration: none;">
+                🛒 Dodaj v košarico
+            </a>
+        </div>
         {% endfor %}
-    </table>
-</body>
-</html>
+    </div>
+    {% else %}
+    <p class="empty-note">V tej regiji trenutno ni izdelkov.</p>
+    {% endif %}
+</main>
+{% endblock %}

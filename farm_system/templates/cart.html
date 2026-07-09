@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Lokalna tržnica - Košarica{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="section-header">
+        <h2 class="section-title">🛒 Tvoja košarica</h2>
+    </div>
+
+    {% if postavke %}
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Izdelek</th>
+                        <th>Kmetija</th>
+                        <th>Količina</th>
+                        <th>Cena za kos</th>
+                        <th>Skupaj</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in postavke %}
+                    <tr>
+                        <td><strong>{{ p.ime_izdelka }}</strong></td>
+                        <td>{{ p.ime_kmetije }}</td>
+                        <td>{{ p.kolicina }}</td>
+                        <td>{{ '%.2f'|format(p.cena_ob_nakupu) }} €</td>
+                        <td><strong>{{ '%.2f'|format(p.kolicina * p.cena_ob_nakupu) }} €</strong></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div style="text-align: right; padding: 20px; background: #fff; border: 2px solid #EDE0CF; border-radius: 16px; margin-bottom: 3rem;">
+            <h3>Skupaj za plačilo: <span style="color: #E63946; font-size: 26px;">{{ '%.2f'|format(skupna_cena) }} €</span></h3>
+            <br>
+            <a href="/checkout" class="btn-primary" style="text-decoration: none; font-size: 16px; padding: 12px 30px;">
+                💳 Oddaj naročilo
+            </a>
+        </div>
+
+    {% else %}
+        <div style="text-align: center; padding: 60px 20px; background: #fff; border: 2px solid #EDE0CF; border-radius: 16px; margin-bottom: 3rem;">
+            <span style="font-size: 48px; display: block; margin-bottom: 15px;">🧺</span>
+            <h3 style="color: #3D2B1A; font-family: 'Fredoka', sans-serif; font-size: 22px;">Tvoja košarica je trenutno prazna.</h3>
+            <p style="margin-bottom: 20px; color: #8B6F5C;">Sveži lokalni izdelki že čakajo nate!</p>
+            <a href="/products" class="btn-primary" style="text-decoration: none;">Prebrskaj ponudbo</a>
+        </div>
+    {% endif %}
+
+</main>
+{% endblock %}
