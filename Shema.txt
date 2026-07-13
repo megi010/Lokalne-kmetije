@@ -1,92 +1,65 @@
-SHEMA
+SHEMA TEKSTOVNEGA VMESNIKA (CLI)
 
-→ 1 – Podatki o kmetijah
-  → 1 – Iskanje po ID
-    = Vrne podatke o določeni kmetiji (ime, vrsta, kraj, regija, kontakt)
-      → 1 – Izdelki kmetije
-        = Prikaže seznam izdelkov te kmetije
-      → 2 – Nazaj
-        ~> preveže na Podatki o kmetijah
-      → 0 – Nazaj na začetni zaslon
+Glavni in edini meni aplikacije ponuja neposreden dostop do poizvedb in operacij.
+Aplikacija po izvedbi ukaza uporabnika vedno vrne nazaj v glavni meni.
 
-  → 2 – Iskanje po imenu kmetije
-    = Prikaže seznam ujemajočih kmetij
-      ~> preveže na Podatki o kmetiji (po ID)
+⸻ PREGLEDI IN ISKANJE (SELECT) ⸻
 
-  → 3 – Prikaži vse kmetije po regiji
-    = Vrne seznam kmetij razvrščenih po regijah
+→ 1 – Izpiši vse kmetije
+    = Prikaže formatiran seznam vseh kmetij (ID, ime, kraj, regija, kontakt).
 
-  → 0 – Nazaj na začetni zaslon
+→ 2 – Izpiši vse izdelke
+    = Prikaže seznam vseh izdelkov skupaj s pripadajočo kmetijo in ceno.
 
-⸻
+→ 3 – Izpiši vse uporabnike
+    = Prikaže vse uporabnike v bazi (ID, ime, e-pošta, tip uporabnika).
 
-→ 2 – Izdelki
-  → 1 – Iskanje po ID izdelka
-    = Vrne podatke o izdelku (ime, vrsta, cena, zaloga, povprečna ocena, kmetija)
-      → 1 – Podrobnosti o kmetiji
-        ~> preveže na Podatki o kmetijah
-      → 2 – Ocene izdelka
-        ~> preveže na Ocene
-      → 0 – Nazaj na začetni zaslon
+→ 4 – Išči izdelke po regiji
+    = Uporabnik vnese ime regije (npr. 'Gorenjska'). Sistem izpiše izdelke s kmetij iz te regije.
 
-  → 2 – Iskanje po vrsti izdelka
-    = Prikaže vse izdelke iz izbrane kategorije
-      → 1 – Izberi izdelek za podrobnosti
-        ~> preveže na Iskanje po ID izdelka
+→ 5 – Išči izdelke po vrsti
+    = Uporabnik vnese vrsto izdelka (npr. 'med'). Sistem izpiše samo te izdelke.
 
-  → 3 – Najbolje ocenjeni izdelki
-    = Vrne seznam top izdelkov po povprečni oceni
+⸻ DODAJANJE (INSERT) ⸻
 
-  → 0 – Nazaj na začetni zaslon
+→ 6 – Dodaj uporabnika
+    = Vnos novega uporabnika (ime, email, geslo, tip).
 
-⸻
+→ 7 – Dodaj kmetijo
+    = Vnos nove kmetije in dodelitev obstoječemu uporabniku (ID lastnika).
 
-→ 3 – Naročila
-  → 1 – Iskanje po ID naročila
-    = Vrne osnovne podatke o naročilu (datum, status, skupna cena)
-      → 1 – Postavke naročila
-        = Prikaže vse izdelke v tem naročilu
-      → 2 – Uporabnik naročila
-        ~> preveže na Podatki o uporabnikih
-      → 0 – Nazaj na začetni zaslon
+→ 8 – Dodaj izdelek
+    = Vnos novega izdelka k izbrani kmetiji (ime, vrsta, pakiranje, cena, zaloga).
 
-  → 2 – Iskanje po uporabniku
-    = Vrne seznam naročil izbranega uporabnika
+⸻ UREJANJE (UPDATE) ⸻
 
-  → 3 – Iskanje po datumu
-    = Vrne naročila v izbranem časovnem obdobju
+→ 9 – Uredi kmetijo
+    = Sprememba podatkov obstoječe kmetije (ime, delovni čas, kontakt).
 
-  → 0 – Nazaj na začetni zaslon
+→ 10 – Uredi izdelek
+    = Sprememba cene in zaloge določenemu izdelku.
 
-⸻
+⸻ BRISANJE (DELETE) ⸻
 
-→ 4 – Uporabniki
-  → 1 – Iskanje po ID
-    = Vrne osnovne podatke o uporabniku (ime, tip, email)
-      → 1 – Naročila uporabnika
-        ~> preveže na Naročila
-      → 2 – Kmetije uporabnika (če je kmet)
-        ~> preveže na Podatki o kmetijah
-      → 0 – Nazaj na začetni zaslon
+→ 11 – Izbriši kmetijo
+    = Odstranitev kmetije (zavrne, če omejitev RESTRICT to preprečuje).
 
-  → 2 – Iskanje po imenu
-    = Prikaže seznam uporabnikov
-      ~> preveže na Iskanje po ID uporabnika
+→ 12 – Izbriši izdelek
+    = Odstranitev izdelka iz ponudbe.
 
-  → 0 – Nazaj na začetni zaslon
+→ 13 – Izbriši oceno
+    = Odstranitev posamezne ocene kupca.
 
-⸻
+⸻ NAPREDNE POIZVEDBE ⸻
 
-→ 5 – Ocene
-  → 1 – Iskanje po ID ocene
-    = Vrne podrobnosti ocene (ocena, komentar, datum, uporabnik, izdelek)
-  → 2 – Iskanje po izdelku
-    = Vrne vse ocene za določen izdelek
-  → 3 – Iskanje po uporabniku
-    = Vrne vse ocene, ki jih je oddal določen uporabnik
-  → 0 – Nazaj na začetni zaslon
+→ 14 – Statistika
+    = Izvede in prikaže agregirane statistične poizvedbe:
+      - Najbolje prodajani izdelki (SUM, GROUP BY, ORDER BY)
+      - Število izdelkov in povprečna cena po regijah
+      - Povprečne ocene izdelkov (AVG, HAVING)
+      - Promet po posameznih kmetijah
 
-⸻
+⸻ IZHOD ⸻
 
 → 0 – Izhod
-
+    = Prekine izvajanje programa.

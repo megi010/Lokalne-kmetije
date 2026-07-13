@@ -35,7 +35,7 @@ Referenčno integriteto strogo varujejo tuji ključi (`PRAGMA foreign_keys = ON`
 * `ON DELETE CASCADE`: Ob izbrisu naročila samodejno počisti njegove pripadajoče postavke.
 
 ### ER diagram
-
+![ER diagram](ER_diagram.jpg)
 
 ---
 
