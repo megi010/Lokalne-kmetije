@@ -9,3 +9,4 @@ venv/
 
 .DS_Store
 farm_system/.DS_Store
+farm_system/data/.DS_Store
