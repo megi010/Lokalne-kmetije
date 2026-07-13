@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}Moja kmetija - Kmetijski trg{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="section-header">
+        <h2 class="section-title">🚜 Moja kmetija</h2>
+        <a class="btn-primary" href="{{ url_for('nova_kmetija') }}">➕ Dodaj kmetijo</a>
+    </div>
+
+    {% if kmetije %}
+        {% for k in kmetije %}
+            <div class="order-box">
+                <div class="order-head">
+                    <strong>
+                        <a class="web-link"
+                           href="{{ url_for('kmetija', id_kmetije=k.id) }}">{{ k.ime_kmetije }}</a>
+                    </strong>
+                    <span class="muted">{{ k.kraj or '–' }}, {{ k.regija or '–' }}</span>
+                    <span class="section-pill">{{ k.st_izdelkov }} izdelkov</span>
+                </div>
+
+                {% if izdelki_po_kmetiji[k.id] %}
+                    <table class="order-table">
+                        <thead>
+                            <tr>
+                                <th>Izdelek</th>
+                                <th>Vrsta</th>
+                                <th>Cena</th>
+                                <th>Zaloga</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in izdelki_po_kmetiji[k.id] %}
+                            <tr>
+                                <td>
+                                    <a class="web-link"
+                                       href="{{ url_for('izdelek', id_izdelka=i.id) }}">{{ i.ime_izdelka }}</a>
+                                </td>
+                                <td class="muted">{{ i.vrsta }}</td>
+                                <td>{{ '%.2f'|format(i.cena) }} € <span class="muted">/ {{ i.kolicina }}</span></td>
+                                <td>
+                                    {% if i.zaloga > 0 %}
+                                        {{ i.zaloga }}
+                                    {% else %}
+                                        <span class="stock-out">razprodano</span>
+                                    {% endif %}
+                                </td>
+                                <td class="admin-row">
+                                    <a class="btn-mini"
+                                       href="{{ url_for('uredi_izdelek', id_izdelka=i.id) }}">✏️ Uredi</a>
+                                    <form method="POST"
+                                          action="{{ url_for('izbrisi_izdelek', id_izdelka=i.id) }}"
+                                          onsubmit="return confirm('Res želiš izbrisati izdelek {{ i.ime_izdelka }}?');">
+                                        <button type="submit" class="btn-mini btn-mini-danger">🗑️</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="empty-note">Ta kmetija še nima izdelkov.</p>
+                {% endif %}
+
+                <div class="admin-row">
+                    <a class="btn-primary"
+                       href="{{ url_for('nov_izdelek', id_kmetije=k.id) }}">➕ Dodaj izdelek</a>
+                    <a class="btn-outline btn-dark"
+                       href="{{ url_for('uredi_kmetijo', id_kmetije=k.id) }}">✏️ Uredi kmetijo</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-box">
+            <span class="empty-emoji">🌾</span>
+            <h3>Nimaš še registrirane kmetije.</h3>
+            <a href="{{ url_for('nova_kmetija') }}" class="btn-primary">Dodaj svojo kmetijo</a>
+        </div>
+    {% endif %}
+
+    <div class="section-header">
+        <h2 class="section-title">Prejeta naročila</h2>
+        <span class="section-pill">{{ narocila | length }}</span>
+    </div>
+
+    {% if narocila %}
+        {% for n in narocila %}
+            <div class="order-box">
+                <div class="order-head">
+                    <strong>Naročilo #{{ n.id }}</strong>
+                    <span class="muted">{{ n.datum }} &middot; kupec: {{ n.kupec }}</span>
+                    <span class="status status-{{ n.status }}">{{ status_opis[n.status] }}</span>
+                    <span class="order-total">{{ '%.2f'|format(n.znesek) }} €</span>
+                </div>
+
+                <table class="order-table">
+                    <tbody>
+                    {% for p in postavke[n.id] %}
+                        <tr>
+                            <td>{{ p.ime_izdelka }}</td>
+                            <td class="muted">{{ p.ime_kmetije }}</td>
+                            <td>{{ p.kolicina }} × {{ '%.2f'|format(p.cena_ob_nakupu) }} €</td>
+                            <td><strong>{{ '%.2f'|format(p.skupaj) }} €</strong></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                {% if n.status == 'oddano' %}
+                    <form method="POST"
+                          action="{{ url_for('zakljuci_narocilo', id_narocila=n.id) }}"
+                          onsubmit="return confirm('Je kupec izdelke prevzel?');">
+                        <button type="submit" class="btn-mini">✅ Zaključi naročilo</button>
+                    </form>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="empty-note">Tvojih izdelkov še ni nihče naročil.</p>
+    {% endif %}
+</main>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}{{ naslov }} - Kmetijski trg{% endblock %}
+
+{% block content %}
+<main class="main">
+    <a class="back-link" href="{{ url_for('kmetija', id_kmetije=kmetija.id) }}">
+        ← Nazaj na {{ kmetija.ime_kmetije }}
+    </a>
+
+    <div class="section-header">
+        <h2 class="section-title">{{ naslov }}</h2>
+        <span class="section-pill">{{ kmetija.ime_kmetije }}</span>
+    </div>
+
+    <div class="form-box form-narrow">
+        <form method="POST">
+            <label class="field-label" for="ime_izdelka">Ime izdelka *</label>
+            <input type="text" name="ime_izdelka" id="ime_izdelka" class="field-input"
+                   value="{{ izdelek.ime_izdelka if izdelek else '' }}"
+                   placeholder="Cvetlični med" required>
+
+            <label class="field-label" for="vrsta">Vrsta</label>
+            <select name="vrsta" id="vrsta" class="field-input">
+                {% for v in vrste %}
+                    <option value="{{ v }}"
+                        {{ 'selected' if izdelek and izdelek.vrsta == v }}>{{ v }}</option>
+                {% endfor %}
+            </select>
+
+            <label class="field-label" for="kolicina">Pakiranje</label>
+            <input type="text" name="kolicina" id="kolicina" class="field-input"
+                   value="{{ izdelek.kolicina if izdelek else '' }}"
+                   placeholder="500 g, 1 l, 10 kosov …">
+
+            <label class="field-label" for="cena">Cena (€) *</label>
+            <input type="number" step="0.01" min="0.01" name="cena" id="cena"
+                   class="field-input"
+                   value="{{ '%.2f'|format(izdelek.cena|float) if izdelek and izdelek.cena else '' }}"
+                   required>
+
+            <label class="field-label" for="zaloga">Zaloga (kosov) *</label>
+            <input type="number" step="1" min="0" name="zaloga" id="zaloga"
+                   class="field-input"
+                   value="{{ izdelek.zaloga if izdelek else 0 }}" required>
+
+            <button type="submit" class="btn-primary btn-block">Shrani</button>
+        </form>
+        <p class="hint">
+            Izdelka, ki je bil že naročen, ni mogoče izbrisati &ndash; v tem
+            primeru mu nastavi zalogo na 0.
+        </p>
+    </div>
+</main>
+{% endblock %}

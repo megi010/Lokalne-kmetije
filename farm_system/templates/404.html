@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Strani ni - Kmetijski trg{% endblock %}
+
+{% block content %}
+<main class="main main-center">
+    <div class="empty-box">
+        <span class="empty-emoji">🥕</span>
+        <h2 class="section-title center">404 - Te strani ni na tržnici</h2>
+        <p class="muted">Povezava je napačna ali pa je bil izdelek odstranjen.</p>
+        <a href="{{ url_for('domov') }}" class="btn-primary">Nazaj na domačo stran</a>
+    </div>
+</main>
+{% endblock %}

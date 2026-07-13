@@ -1,10 +1,11 @@
 {% extends "base.html" %}
-{% block title %}Lokalna tržnica - Košarica{% endblock %}
+{% block title %}Košarica - Kmetijski trg{% endblock %}
 
 {% block content %}
 <main class="main">
     <div class="section-header">
         <h2 class="section-title">🛒 Tvoja košarica</h2>
+        <span class="section-pill">{{ postavke | length }} izdelkov</span>
     </div>
 
     {% if postavke %}
@@ -15,40 +16,59 @@
                         <th>Izdelek</th>
                         <th>Kmetija</th>
                         <th>Količina</th>
-                        <th>Cena za kos</th>
+                        <th>Cena/kos</th>
                         <th>Skupaj</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for p in postavke %}
+                {% for p in postavke %}
                     <tr>
-                        <td><strong>{{ p.ime_izdelka }}</strong></td>
+                        <td>
+                            <a class="card-link"
+                               href="{{ url_for('izdelek', id_izdelka=p.id_izdelka) }}">
+                                <strong>{{ p.ime_izdelka }}</strong>
+                            </a>
+                        </td>
                         <td>{{ p.ime_kmetije }}</td>
-                        <td>{{ p.kolicina }}</td>
+                        <td>
+                            <form class="inline-form" method="POST"
+                                  action="{{ url_for('posodobi_kosarico', id_postavke=p.id) }}">
+                                <input type="number" name="kolicina" value="{{ p.kolicina }}"
+                                       min="1" max="{{ p.zaloga }}" class="qty-input">
+                                <button type="submit" class="btn-mini">Posodobi</button>
+                            </form>
+                        </td>
                         <td>{{ '%.2f'|format(p.cena_ob_nakupu) }} €</td>
-                        <td><strong>{{ '%.2f'|format(p.kolicina * p.cena_ob_nakupu) }} €</strong></td>
+                        <td><strong>{{ '%.2f'|format(p.skupaj) }} €</strong></td>
+                        <td>
+                            <form method="POST"
+                                  action="{{ url_for('odstrani_iz_kosarice', id_postavke=p.id) }}">
+                                <button type="submit" class="btn-mini btn-mini-danger">Odstrani</button>
+                            </form>
+                        </td>
                     </tr>
-                    {% endfor %}
+                {% endfor %}
                 </tbody>
             </table>
         </div>
 
-        <div style="text-align: right; padding: 20px; background: #fff; border: 2px solid #EDE0CF; border-radius: 16px; margin-bottom: 3rem;">
-            <h3>Skupaj za plačilo: <span style="color: #E63946; font-size: 26px;">{{ '%.2f'|format(skupna_cena) }} €</span></h3>
-            <br>
-            <a href="/checkout" class="btn-primary" style="text-decoration: none; font-size: 16px; padding: 12px 30px;">
-                💳 Oddaj naročilo
-            </a>
+        <div class="checkout-box">
+            <h3>Skupaj za plačilo:
+                <span class="checkout-total">{{ '%.2f'|format(skupna_cena) }} €</span>
+            </h3>
+            <form method="POST" action="{{ url_for('oddaj_narocilo') }}">
+                <button type="submit" class="btn-primary">💳 Oddaj naročilo</button>
+            </form>
+            <p class="muted">Ob oddaji se zaloga izdelkov zmanjša v eni transakciji.</p>
         </div>
-
     {% else %}
-        <div style="text-align: center; padding: 60px 20px; background: #fff; border: 2px solid #EDE0CF; border-radius: 16px; margin-bottom: 3rem;">
-            <span style="font-size: 48px; display: block; margin-bottom: 15px;">🧺</span>
-            <h3 style="color: #3D2B1A; font-family: 'Fredoka', sans-serif; font-size: 22px;">Tvoja košarica je trenutno prazna.</h3>
-            <p style="margin-bottom: 20px; color: #8B6F5C;">Sveži lokalni izdelki že čakajo nate!</p>
-            <a href="/products" class="btn-primary" style="text-decoration: none;">Prebrskaj ponudbo</a>
+        <div class="empty-box">
+            <span class="empty-emoji">🧺</span>
+            <h3>Tvoja košarica je prazna.</h3>
+            <p class="muted">Sveži lokalni izdelki že čakajo nate!</p>
+            <a href="{{ url_for('izdelki') }}" class="btn-primary">Prebrskaj ponudbo</a>
         </div>
     {% endif %}
-
 </main>
 {% endblock %}

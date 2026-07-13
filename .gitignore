@@ -1,0 +1,11 @@
+farm.db
+farm_system/farm.db
+
+__pycache__/
+*.pyc
+
+.venv/
+venv/
+
+.DS_Store
+farm_system/.DS_Store

@@ -10,28 +10,64 @@
     <div class="topbar">Domači izdelki neposredno od lokalnih kmetij</div>
 
     <header class="site-header">
-        <a href="{{ url_for('index') }}" class="site-logo">
+        <a href="{{ url_for('domov') }}" class="site-logo">
             <span class="logo-dot"></span> Kmetijski trg
         </a>
+
         <nav class="site-nav">
-            <nav class="site-nav">
-            <a href="{{ url_for('index') }}" class="{{ 'active' if request.path == '/' }}">Domov</a>
-            <a href="{{ url_for('farms') }}" class="{{ 'active' if request.path == '/farms' }}">Kmetije</a>
-            <a href="{{ url_for('products') }}" class="{{ 'active' if request.path == '/products' }}">Izdelki</a>
-            
-            <a href="/cart" class="{{ 'active' if request.path == '/cart' }}">🛒 Košarica</a>
-            
-            <a href="/login" class="btn-login">Prijava</a>
-        </nav>
-            
+            <a href="{{ url_for('domov') }}"
+               class="{{ 'active' if request.endpoint == 'domov' }}">Domov</a>
+            <a href="{{ url_for('kmetije') }}"
+               class="{{ 'active' if request.endpoint in ['kmetije', 'kmetija'] }}">Kmetije</a>
+            <a href="{{ url_for('izdelki') }}"
+               class="{{ 'active' if request.endpoint in ['izdelki', 'regija', 'izdelek'] }}">Izdelki</a>
+            <a href="{{ url_for('statistika') }}"
+               class="{{ 'active' if request.endpoint == 'statistika' }}">Statistika</a>
+
+            {% if uporabnik_ime %}
+                {% if uporabnik_tip in ['lastnik kmetije', 'admin'] %}
+                    <a href="{{ url_for('moja_kmetija') }}"
+                       class="{{ 'active' if request.endpoint == 'moja_kmetija' }}">🚜 Moja kmetija</a>
+                {% endif %}
+                {% if uporabnik_tip == 'admin' %}
+                    <a href="{{ url_for('admin') }}"
+                       class="{{ 'active' if request.endpoint == 'admin' }}">⚙️ Admin</a>
+                {% endif %}
+
+                <a href="{{ url_for('kosarica') }}"
+                   class="{{ 'active' if request.endpoint == 'kosarica' }}">
+                    🛒 Košarica
+                    {% if kosov_v_kosarici %}
+                        <span class="cart-badge">{{ kosov_v_kosarici }}</span>
+                    {% endif %}
+                </a>
+                <a href="{{ url_for('moja_narocila') }}"
+                   class="{{ 'active' if request.endpoint == 'moja_narocila' }}">Naročila</a>
+                <a href="{{ url_for('profil') }}" class="nav-user
+                   {{ 'active' if request.endpoint == 'profil' }}">{{ uporabnik_ime }}</a>
+                <a href="{{ url_for('odjava') }}" class="btn-login">Odjava</a>
+            {% else %}
+                <a href="{{ url_for('registracija') }}">Registracija</a>
+                <a href="{{ url_for('prijava') }}" class="btn-login">Prijava</a>
+            {% endif %}
         </nav>
     </header>
+
+    {% with sporocila = get_flashed_messages(with_categories=true) %}
+        {% if sporocila %}
+            <div class="flash-wrap">
+                {% for kategorija, sporocilo in sporocila %}
+                    <div class="flash flash-{{ kategorija }}">{{ sporocilo }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
 
     {% block content %}{% endblock %}
 
     <footer class="site-footer">
         Kmetijski trg &middot; seminarska naloga pri predmetu Podatkovne baze &middot;
-        <a href="{{ url_for('products') }}">Prebrskaj izdelke</a>
+        <a href="{{ url_for('izdelki') }}">Prebrskaj izdelke</a>
     </footer>
 </body>
 </html>

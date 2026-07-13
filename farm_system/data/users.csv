@@ -1,11 +1,11 @@
 id,ime,email,geslo,tip
-1,Janez Novak,janez.novak@kmetija-novak.si,hash_gesla_1,lastnik kmetije
-2,Ana Kranjc,ana.kranjc@gmail.com,hash_gesla_2,kupec
-3,Živa Hribar,ziva.hribar@kmet.si,hash_gesla_3,admin
-4,Mojca Pok,mojca.pok@kmetija-zelenigric.si,hash_gesla_4,lastnik kmetije
-5,Cene Čebelar,cene@med.si,hash_gesla_5,lastnik kmetije
-6,Marko Kos,marko.kos@pri-kosu.si,hash_gesla_6,lastnik kmetije
-7,Eva Zupan,eva.zupan@ekovrt.si,hash_gesla_7,lastnik kmetije
-8,Tomaž Vidmar,tomaz.vidmar@gmail.com,hash_gesla_8,kupec
-9,Petra Zorko,petra.zorko@gmail.com,hash_gesla_9,kupec
-10,Luka Bizjak,luka.bizjak@gmail.com,hash_gesla_10,kupec
+1,Janez Novak,janez.novak@kmetija-novak.si,janez123,lastnik kmetije
+2,Ana Kranjc,ana.kranjc@gmail.com,ana123,kupec
+3,Živa Hribar,ziva.hribar@kmet.si,admin123,admin
+4,Mojca Pok,mojca.pok@kmetija-zelenigric.si,mojca123,lastnik kmetije
+5,Cene Čebelar,cene@med.si,cene123,lastnik kmetije
+6,Marko Kos,marko.kos@pri-kosu.si,marko123,lastnik kmetije
+7,Eva Zupan,eva.zupan@ekovrt.si,eva123,lastnik kmetije
+8,Tomaž Vidmar,tomaz.vidmar@gmail.com,tomaz123,kupec
+9,Petra Zorko,petra.zorko@gmail.com,petra123,kupec
+10,Luka Bizjak,luka.bizjak@gmail.com,luka123,kupec

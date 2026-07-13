@@ -6,37 +6,35 @@
     <div class="section-header">
         {% if regija %}
             <h2 class="section-title">Izdelki v regiji {{ regija }}</h2>
+        {% elif iskanje %}
+            <h2 class="section-title">Rezultati iskanja: „{{ iskanje }}“</h2>
         {% else %}
             <h2 class="section-title">Vsi izdelki</h2>
         {% endif %}
-        <span class="section-pill">{{ izdelki|length }} izdelkov</span>
+        <span class="section-pill">{{ izdelki | length }} izdelkov</span>
     </div>
 
-    {% set emoji = {'med':'🍯','sadje':'🍎','zelenjava':'🥬','mlečni izdelki':'🧀','jajca':'🥚'} %}
-    {% set badge = {'med':'badge-med','sadje':'badge-sadje','zelenjava':'badge-zelenjava','mlečni izdelki':'badge-mlecni','jajca':'badge-jajca'} %}
+    <form class="search-bar" method="GET" action="{{ url_for('izdelki') }}">
+        <input type="search" name="q" value="{{ iskanje | default('', true) }}"
+               placeholder="Išči po imenu, vrsti ali kmetiji…" class="search-input">
+        <button type="submit" class="btn-primary">Išči</button>
+    </form>
 
-    {% if izdelki %}
-    <div class="card-grid">
-        {% for i in izdelki %}
-        <div class="card">
-            <span class="card-emoji">{{ emoji.get(i.vrsta, '🌿') }}</span>
-            <span class="card-badge {{ badge.get(i.vrsta, 'badge-zelenjava') }}">{{ i.vrsta }}</span>
-            <h3>{{ i.ime_izdelka }}</h3>
-            <p class="card-farm">{{ i.ime_kmetije }} &middot; {{ i.kolicina }}</p>
-
-            <div class="card-footer">
-                <span class="card-price">{{ '%.2f'|format(i.cena) }} €</span>
-                <span class="card-stock">{{ i.zaloga }} kosov</span>
-            </div>
-            
-            <a href="/add_to_cart/{{ i.id }}" class="btn-primary" style="display: block; text-align: center; margin-top: 15px; text-decoration: none;">
-                🛒 Dodaj v košarico
-            </a>
-        </div>
+    <div class="filter-row">
+        <a class="regija-link" href="{{ url_for('izdelki') }}">Vse regije</a>
+        {% for r in regije %}
+            <a class="regija-link" href="{{ url_for('regija', ime_regije=r) }}">{{ r }}</a>
         {% endfor %}
     </div>
+
+    {% if izdelki %}
+        <div class="card-grid">
+            {% for i in izdelki %}
+                {% include "partials/_product_card.html" %}
+            {% endfor %}
+        </div>
     {% else %}
-    <p class="empty-note">V tej regiji trenutno ni izdelkov.</p>
+        <p class="empty-note">Za to iskanje ni izdelkov. Poskusi z drugo regijo ali besedo.</p>
     {% endif %}
 </main>
 {% endblock %}

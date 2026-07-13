@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% from "partials/_macros.html" import telefon %}
+{% block title %}{{ izdelek.ime_izdelka }} - Kmetijski trg{% endblock %}
+
+{% block content %}
+<main class="main">
+    <a class="back-link" href="{{ url_for('izdelki') }}">← Nazaj na izdelke</a>
+
+    {% set badge = {'med': 'badge-med', 'sadje': 'badge-sadje',
+                    'zelenjava': 'badge-zelenjava', 'mlečni izdelki': 'badge-mlecni',
+                    'jajca': 'badge-jajca'} %}
+
+    <div class="detail-grid">
+        <div class="detail-box">
+            <span class="card-badge {{ badge.get(izdelek.vrsta, 'badge-zelenjava') }}">{{ izdelek.vrsta }}</span>
+            <h1 class="detail-title">{{ izdelek.ime_izdelka }}</h1>
+            <p class="card-farm">
+                {{ izdelek.ime_kmetije }} &middot; {{ kmetija.kraj }},
+                <a class="regija-link"
+                   href="{{ url_for('regija', ime_regije=izdelek.regija) }}">{{ izdelek.regija }}</a>
+            </p>
+
+            <p class="detail-price">{{ '%.2f'|format(izdelek.cena) }} €
+                <span class="muted">/ {{ izdelek.kolicina }}</span></p>
+
+            <p>
+                {% if izdelek.zaloga > 0 %}
+                    <span class="card-stock">Na zalogi: {{ izdelek.zaloga }}</span>
+                {% else %}
+                    <span class="card-stock stock-out">Razprodano</span>
+                {% endif %}
+                {% if izdelek.povprecna_ocena %}
+                    <span class="card-stock">⭐ {{ izdelek.povprecna_ocena }}/5
+                        ({{ izdelek.st_ocen }} ocen)</span>
+                {% endif %}
+            </p>
+
+            {% if izdelek.zaloga > 0 %}
+                <form class="inline-form" method="POST"
+                      action="{{ url_for('dodaj_v_kosarico', id_izdelka=izdelek.id) }}">
+                    <input type="hidden" name="nazaj" value="{{ request.path }}">
+                    <input type="number" name="kolicina" value="1" min="1"
+                           max="{{ izdelek.zaloga }}" class="qty-input">
+                    <button type="submit" class="btn-primary">🛒 Dodaj v košarico</button>
+                </form>
+            {% endif %}
+
+            {% if sme_urejati %}
+                <div class="admin-row">
+                    <a class="btn-outline btn-dark"
+                       href="{{ url_for('uredi_izdelek', id_izdelka=izdelek.id) }}">✏️ Uredi</a>
+                    <form method="POST"
+                          action="{{ url_for('izbrisi_izdelek', id_izdelka=izdelek.id) }}"
+                          onsubmit="return confirm('Res želiš izbrisati ta izdelek?');">
+                        <button type="submit" class="btn-danger">🗑️ Izbriši</button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="detail-box">
+            <h3 class="section-title">O kmetiji</h3>
+            <p>
+                <strong>
+                    <a class="card-link"
+                       href="{{ url_for('kmetija', id_kmetije=kmetija.id) }}">{{ kmetija.ime_kmetije }}</a>
+                </strong>
+                ({{ kmetija.vrsta_kmetije or 'kmetija' }})
+            </p>
+            <p>{{ kmetija.kraj or '–' }}, {{ kmetija.regija or '–' }}</p>
+            <p>Delovni čas: {{ kmetija.delovni_cas or '–' }}</p>
+            <p>Telefon: {{ telefon(kmetija.telefonska_stevilka) }}</p>
+            {% if kmetija.spletna_stran %}
+                <p><a class="web-link" href="{{ kmetija.spletna_stran }}" target="_blank"
+                      rel="noopener">{{ kmetija.spletna_stran }}</a></p>
+            {% endif %}
+            <p class="hint">Lastnik: {{ kmetija.lastnik }}</p>
+        </div>
+    </div>
+
+    <div class="section-header">
+        <h2 class="section-title">Ocene kupcev</h2>
+        <span class="section-pill">{{ ocene | length }}</span>
+    </div>
+
+    {% if ocene %}
+        <div class="review-list">
+            {% for o in ocene %}
+                <div class="review">
+                    <div class="review-head">
+                        <strong>{{ o.ime }}</strong>
+                        <span class="review-stars">{{ '⭐' * o.ocena }}</span>
+                        <span class="muted">{{ o.datum }}</span>
+                    </div>
+                    <p>{{ o.komentar }}</p>
+                    {% if o.id_uporabnika == session.get('uporabnik_id')
+                          or uporabnik_tip == 'admin' %}
+                        <form method="POST"
+                              action="{{ url_for('izbrisi_oceno', id_ocene=o.id) }}"
+                              onsubmit="return confirm('Res želiš izbrisati to oceno?');">
+                            <input type="hidden" name="id_izdelka" value="{{ izdelek.id }}">
+                            <button type="submit" class="btn-mini btn-mini-danger">🗑️ Izbriši oceno</button>
+                        </form>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="empty-note">Ta izdelek še nima ocen. Bodi prva!</p>
+    {% endif %}
+
+    {% if uporabnik_ime %}
+        <div class="form-box">
+            <h3 class="section-title">
+                {{ 'Popravi svojo oceno' if moja_ocena else 'Oceni ta izdelek' }}
+            </h3>
+            <form method="POST" action="{{ url_for('oceni_izdelek', id_izdelka=izdelek.id) }}">
+                <label class="field-label" for="ocena">Ocena (1-5)</label>
+                <select name="ocena" id="ocena" class="field-input" required>
+                    {% for n in [5, 4, 3, 2, 1] %}
+                        <option value="{{ n }}"
+                            {{ 'selected' if moja_ocena and moja_ocena.ocena == n }}>{{ n }} {{ '⭐' * n }}</option>
+                    {% endfor %}
+                </select>
+
+                <label class="field-label" for="komentar">Komentar</label>
+                <textarea name="komentar" id="komentar" rows="3" class="field-input"
+                          placeholder="Kaj ti je bilo všeč?">{{ moja_ocena.komentar if moja_ocena else '' }}</textarea>
+
+                <button type="submit" class="btn-primary btn-block">Oddaj oceno</button>
+            </form>
+        </div>
+    {% else %}
+        <p class="empty-note">
+            <a class="web-link" href="{{ url_for('prijava') }}">Prijavi se</a>, če želiš oceniti izdelek.
+        </p>
+    {% endif %}
+</main>
+{% endblock %}

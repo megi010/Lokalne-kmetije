@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Moj profil - Kmetijski trg{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="section-header">
+        <h2 class="section-title">Moj profil</h2>
+        <span class="section-pill">{{ uporabnik.tip }}</span>
+    </div>
+
+    <div class="detail-grid">
+        <div class="form-box">
+            <h3 class="section-title">Podatki računa</h3>
+            <form method="POST" action="{{ url_for('uredi_profil') }}">
+                <label class="field-label" for="ime">Ime in priimek *</label>
+                <input type="text" name="ime" id="ime" class="field-input"
+                       value="{{ uporabnik.ime }}" required>
+
+                <label class="field-label" for="email">E-pošta *</label>
+                <input type="email" name="email" id="email" class="field-input"
+                       value="{{ uporabnik.email }}" required>
+
+                <button type="submit" class="btn-primary btn-block">Shrani spremembe</button>
+            </form>
+            <p class="hint">
+                Tip računa ({{ uporabnik.tip }}) lahko spremeni samo administrator.
+            </p>
+        </div>
+
+        <div class="form-box">
+            <h3 class="section-title">Sprememba gesla</h3>
+            <form method="POST" action="{{ url_for('zamenjaj_geslo') }}">
+                <label class="field-label" for="staro_geslo">Trenutno geslo *</label>
+                <input type="password" name="staro_geslo" id="staro_geslo"
+                       class="field-input" required>
+
+                <label class="field-label" for="novo_geslo">Novo geslo *</label>
+                <input type="password" name="novo_geslo" id="novo_geslo"
+                       class="field-input" minlength="5" required>
+
+                <label class="field-label" for="ponovitev">Ponovi novo geslo *</label>
+                <input type="password" name="ponovitev" id="ponovitev"
+                       class="field-input" minlength="5" required>
+
+                <button type="submit" class="btn-primary btn-block">Zamenjaj geslo</button>
+            </form>
+            <p class="hint">
+                Gesla so v bazi shranjena zgoščena (hash), zato jih ni mogoče
+                prebrati &ndash; tudi administrator jih ne vidi.
+            </p>
+        </div>
+    </div>
+</main>
+{% endblock %}

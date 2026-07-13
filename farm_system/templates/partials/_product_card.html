@@ -1,0 +1,43 @@
+{# Kartica izdelka. Pričakuje spremenljivko `i` (vrstica iz model.vsi_izdelki()). #}
+{% set emoji = {'med': '🍯', 'sadje': '🍎', 'zelenjava': '🥬',
+                'mlečni izdelki': '🧀', 'jajca': '🥚'} %}
+{% set badge = {'med': 'badge-med', 'sadje': 'badge-sadje',
+                'zelenjava': 'badge-zelenjava', 'mlečni izdelki': 'badge-mlecni',
+                'jajca': 'badge-jajca'} %}
+
+<div class="card">
+    <span class="card-emoji">{{ emoji.get(i.vrsta, '🌿') }}</span>
+    <span class="card-badge {{ badge.get(i.vrsta, 'badge-zelenjava') }}">{{ i.vrsta }}</span>
+
+    <h3><a class="card-link" href="{{ url_for('izdelek', id_izdelka=i.id) }}">{{ i.ime_izdelka }}</a></h3>
+    <p class="card-farm">{{ i.ime_kmetije }} &middot; {{ i.kolicina }}</p>
+
+    <p class="card-rating">
+        {% if i.povprecna_ocena %}
+            ⭐ {{ i.povprecna_ocena }}/5 <span class="muted">({{ i.st_ocen }})</span>
+        {% else %}
+            <span class="muted">Še ni ocen</span>
+        {% endif %}
+    </p>
+
+    <div class="card-footer">
+        <span class="card-price">{{ '%.2f'|format(i.cena) }} €</span>
+        {% if i.zaloga > 0 %}
+            <span class="card-stock">{{ i.zaloga }} na zalogi</span>
+        {% else %}
+            <span class="card-stock stock-out">Razprodano</span>
+        {% endif %}
+    </div>
+
+    {% if i.zaloga > 0 %}
+        <form class="card-form" method="POST"
+              action="{{ url_for('dodaj_v_kosarico', id_izdelka=i.id) }}">
+            <input type="hidden" name="nazaj" value="{{ request.path }}">
+            <input type="number" name="kolicina" value="1" min="1"
+                   max="{{ i.zaloga }}" class="qty-input" aria-label="Količina">
+            <button type="submit" class="btn-primary btn-block">🛒 V košarico</button>
+        </form>
+    {% else %}
+        <button class="btn-primary btn-block" disabled>Ni na zalogi</button>
+    {% endif %}
+</div>

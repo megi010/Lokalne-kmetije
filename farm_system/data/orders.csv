@@ -1,5 +1,5 @@
 id,id_uporabnika,datum,status
-1,2,2025-03-02,zaključeno
-2,8,2025-03-10,v obdelavi
-3,9,2025-04-05,dokončano
-4,2,2025-04-20,novo
+1,2,2025-03-02,zakljuceno
+2,8,2025-03-10,oddano
+3,9,2025-04-05,zakljuceno
+4,2,2025-04-20,oddano

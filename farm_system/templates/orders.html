@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Moja naročila - Kmetijski trg{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="section-header">
+        <h2 class="section-title">Moja naročila</h2>
+        <span class="section-pill">{{ narocila | length }}</span>
+    </div>
+
+    {% if narocila %}
+        {% for n in narocila %}
+            <div class="order-box">
+                <div class="order-head">
+                    <strong>Naročilo #{{ n.id }}</strong>
+                    <span class="muted">{{ n.datum }}</span>
+                    <span class="status status-{{ n.status }}">{{ status_opis[n.status] }}</span>
+                    <span class="order-total">{{ '%.2f'|format(n.znesek) }} €</span>
+                </div>
+
+                <table class="order-table">
+                    <tbody>
+                    {% for p in postavke[n.id] %}
+                        <tr>
+                            <td>{{ p.ime_izdelka }}</td>
+                            <td class="muted">{{ p.ime_kmetije }}</td>
+                            <td>{{ p.kolicina }} ×  {{ '%.2f'|format(p.cena_ob_nakupu) }} €</td>
+                            <td><strong>{{ '%.2f'|format(p.skupaj) }} €</strong></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                {% if n.status == 'oddano' %}
+                    <form method="POST"
+                          action="{{ url_for('preklici_narocilo', id_narocila=n.id) }}"
+                          onsubmit="return confirm('Res želiš preklicati naročilo?');">
+                        <button type="submit" class="btn-mini btn-mini-danger">Prekliči naročilo</button>
+                    </form>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-box">
+            <span class="empty-emoji">📦</span>
+            <h3>Nimaš še nobenega naročila.</h3>
+            <a href="{{ url_for('izdelki') }}" class="btn-primary">Prebrskaj ponudbo</a>
+        </div>
+    {% endif %}
+</main>
+{% endblock %}

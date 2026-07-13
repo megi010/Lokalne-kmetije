@@ -1,87 +1,54 @@
 {% extends "base.html" %}
-{% block title %}Lokalna tržnica - Domov{% endblock %}
+{% block title %}Kmetijski trg - Domov{% endblock %}
 
 {% block content %}
 <div class="hero">
-  <div class="hero-stripes"></div>
-  <div class="hero-tag">🧺 Lokalno & sveže</div>
-  <h1>Tržnica pri tebi doma</h1>
-  <p>Naroči domače izdelke neposredno od slovenskih kmetij. Brez posrednikov, z okusom!</p>
-  <div class="hero-actions">
-    <a href="/products" class="btn-primary">🛒 Oglej si ponudbo</a>
-    <a href="/farms" class="btn-outline">Vse kmetije →</a>
-  </div>
+    <div class="hero-stripes"></div>
+    <div class="hero-tag">🧺 Lokalno &amp; sveže</div>
+    <h1>Tržnica pri tebi doma</h1>
+    <p>Naroči domače izdelke neposredno od slovenskih kmetij. Brez posrednikov, z okusom!</p>
+    <div class="hero-actions">
+        <a href="{{ url_for('izdelki') }}" class="btn-primary">🛒 Oglej si ponudbo</a>
+        <a href="{{ url_for('kmetije') }}" class="btn-outline">Vse kmetije →</a>
+    </div>
 </div>
 
 <div class="stats-strip">
-  <div class="stat">
-    <span class="stat-num">{{ st_kmetij }}</span>
-    <span class="stat-label">Kmetij</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">{{ st_izdelkov }}</span>
-    <span class="stat-label">Izdelkov</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">100%</span>
-    <span class="stat-label">Lokalno</span>
-  </div>
+    <div class="stat">
+        <span class="stat-num">{{ statistika.kmetije }}</span>
+        <span class="stat-label">Kmetij</span>
+    </div>
+    <div class="stat">
+        <span class="stat-num">{{ statistika.izdelki }}</span>
+        <span class="stat-label">Izdelkov</span>
+    </div>
+    <div class="stat">
+        <span class="stat-num">{{ statistika.narocila }}</span>
+        <span class="stat-label">Naročil</span>
+    </div>
+    <div class="stat">
+        <span class="stat-num">{{ statistika.uporabniki }}</span>
+        <span class="stat-label">Uporabnikov</span>
+    </div>
 </div>
 
 <main class="main">
-  <div class="section-header">
-    <h2 class="section-title">Priporočeni izdelki</h2>
-    <span class="section-pill">Novo</span>
-  </div>
-
-  {% set emoji = {'med':'🍯','sadje':'🍎','zelenjava':'🥬','mlečni izdelki':'🧀','jajca':'🥚'} %}
-  {% set badge = {'med':'badge-med','sadje':'badge-sadje','zelenjava':'badge-zelenjava','mlečni izdelki':'badge-mlecni','jajca':'badge-jajca'} %}
-
-  <div class="card-grid">
-    {% for i in izdelki %}
-    <div class="card">
-      <span class="card-emoji">{{ emoji.get(i.vrsta, '🌿') }}</span>
-      <span class="card-badge {{ badge.get(i.vrsta, 'badge-zelenjava') }}">{{ i.vrsta }}</span>
-      <h3>{{ i.ime_izdelka }}</h3>
-      <p class="card-farm">{{ i.ime_kmetije }}</p>
-      
-      <div class="card-footer" style="margin-bottom: 10px;">
-        <span class="card-price">{{ '%.2f'|format(i.cena) }} €</span>
-        <span class="card-stock">{{ i.zaloga }} kosov</span>
-      </div>
-      
-      <a href="/add_to_cart/{{ i.id }}" class="btn-primary" style="display: block; text-align: center; padding: 8px; font-size: 13px; text-decoration: none;">
-        Dodaj v košarico
-      </a>
+    <div class="section-header">
+        <h2 class="section-title">Priporočeni izdelki</h2>
+        <span class="section-pill">Novo</span>
     </div>
-    {% endfor %}
-  </div>
 
-  <div class="section-header">
-    <h2 class="section-title">Nove kmetije na tržnici</h2>
-  </div>
-
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th>Ime kmetije</th>
-          <th>Vrsta</th>
-          <th>Kraj</th>
-          <th>Regija</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for k in kmetije %}
-        <tr>
-          <td><strong>{{ k.ime_kmetije }}</strong></td>
-          <td>{{ k.vrsta_kmetije }}</td>
-          <td>{{ k.kraj }}</td>
-          <td><a href="/region/{{ k.regija }}" class="regija-link">{{ k.regija }}</a></td>
-        </tr>
+    <div class="card-grid">
+        {% for i in izdelki %}
+            {% include "partials/_product_card.html" %}
         {% endfor %}
-      </tbody>
-    </table>
-  </div>
+    </div>
+
+    <div class="section-header">
+        <h2 class="section-title">Nove kmetije na tržnici</h2>
+        <a class="section-link" href="{{ url_for('kmetije') }}">Vse kmetije →</a>
+    </div>
+
+    {% include "partials/_farms_table.html" %}
 </main>
 {% endblock %}

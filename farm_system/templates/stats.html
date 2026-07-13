@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Statistika - Kmetijski trg{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="section-header">
+        <h2 class="section-title">Statistika tržnice</h2>
+        <span class="section-pill">SQL: JOIN, GROUP BY, SUM, AVG</span>
+    </div>
+
+    <div class="stats-cards">
+        <div class="stat-card"><span class="stat-num">{{ osnovna.kmetije }}</span>
+            <span class="stat-label">Kmetij</span></div>
+        <div class="stat-card"><span class="stat-num">{{ osnovna.izdelki }}</span>
+            <span class="stat-label">Izdelkov</span></div>
+        <div class="stat-card"><span class="stat-num">{{ osnovna.narocila }}</span>
+            <span class="stat-label">Naročil</span></div>
+        <div class="stat-card"><span class="stat-num">{{ osnovna.uporabniki }}</span>
+            <span class="stat-label">Uporabnikov</span></div>
+    </div>
+
+    <div class="section-header">
+        <h3 class="section-title">Najbolje prodajani izdelki</h3>
+    </div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr><th>Izdelek</th><th>Prodanih kosov</th><th>Promet</th></tr>
+            </thead>
+            <tbody>
+            {% for p in top_izdelki %}
+                <tr>
+                    <td><strong>{{ p.ime_izdelka }}</strong></td>
+                    <td>{{ p.prodano }}</td>
+                    <td>{{ '%.2f'|format(p.promet) }} €</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="3" class="muted">Ni podatkov o prodaji.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-header">
+        <h3 class="section-title">Izdelki po regijah</h3>
+    </div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr><th>Regija</th><th>Št. izdelkov</th><th>Povprečna cena</th></tr>
+            </thead>
+            <tbody>
+            {% for r in po_regijah %}
+                <tr>
+                    <td>
+                        <a class="regija-link"
+                           href="{{ url_for('regija', ime_regije=r.regija) }}">{{ r.regija }}</a>
+                    </td>
+                    <td>{{ r.st_izdelkov }}</td>
+                    <td>{{ ('%.2f'|format(r.povprecna_cena) ~ ' €') if r.povprecna_cena else '–' }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-header">
+        <h3 class="section-title">Povprečne ocene izdelkov</h3>
+    </div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr><th>Izdelek</th><th>Povprečna ocena</th><th>Št. ocen</th></tr>
+            </thead>
+            <tbody>
+            {% for o in ocene %}
+                <tr>
+                    <td>{{ o.ime_izdelka }}</td>
+                    <td>⭐ {{ o.povprecna_ocena }}/5</td>
+                    <td>{{ o.st_ocen }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="3" class="muted">Ni ocen.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-header">
+        <h3 class="section-title">Promet po kmetijah</h3>
+    </div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr><th>Kmetija</th><th>Regija</th><th>Promet</th></tr>
+            </thead>
+            <tbody>
+            {% for k in promet %}
+                <tr>
+                    <td><strong>{{ k.ime_kmetije }}</strong></td>
+                    <td>{{ k.regija }}</td>
+                    <td>{{ '%.2f'|format(k.promet) }} €</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
+{% endblock %}

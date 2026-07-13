@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Administracija - Kmetijski trg{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="section-header">
+        <h2 class="section-title">⚙️ Administracija uporabnikov</h2>
+        <span class="section-pill">{{ uporabniki | length }} uporabnikov</span>
+    </div>
+
+    <div class="table-box">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Ime</th>
+                    <th>E-pošta</th>
+                    <th>Tip</th>
+                    <th>Kmetij</th>
+                    <th>Naročil</th>
+                    <th>Dejanja</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for u in uporabniki %}
+                <tr>
+                    <td class="muted">{{ u.id }}</td>
+                    <td><strong>{{ u.ime }}</strong></td>
+                    <td class="muted">{{ u.email }}</td>
+                    <td><span class="card-badge">{{ u.tip }}</span></td>
+                    <td>{{ u.st_kmetij }}</td>
+                    <td>{{ u.st_narocil }}</td>
+                    <td>
+                        <div class="admin-row">
+                            <form method="POST"
+                                  action="{{ url_for('spremeni_tip', id_uporabnika=u.id) }}"
+                                  class="inline-form">
+                                <select name="tip" class="field-input field-mini">
+                                    {% for t in tipi %}
+                                        <option value="{{ t }}"
+                                            {{ 'selected' if u.tip == t }}>{{ t }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="btn-mini">Shrani</button>
+                            </form>
+
+                            {% if u.st_kmetij == 0 and u.st_narocil == 0 %}
+                                <form method="POST"
+                                      action="{{ url_for('izbrisi_uporabnika', id_uporabnika=u.id) }}"
+                                      onsubmit="return confirm('Res želiš izbrisati uporabnika {{ u.ime }}?');">
+                                    <button type="submit" class="btn-mini btn-mini-danger">🗑️</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <p class="hint">
+        Uporabnika, ki ima kmetijo ali naročila, ni mogoče izbrisati &ndash;
+        za to poskrbi omejitev <code>ON DELETE RESTRICT</code> v shemi baze.
+    </p>
+</main>
+{% endblock %}

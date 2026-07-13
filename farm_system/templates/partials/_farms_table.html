@@ -1,0 +1,46 @@
+{# Tabela kmetij. Pričakuje spremenljivko `kmetije`. #}
+{% from "partials/_macros.html" import telefon %}
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>Kmetija</th>
+                <th>Vrsta</th>
+                <th>Kraj</th>
+                <th>Regija</th>
+                <th>Delovni čas</th>
+                <th>Izdelkov</th>
+                <th>Telefon</th>
+                <th>Splet</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for k in kmetije %}
+            <tr>
+                <td>
+                    <a class="card-link" href="{{ url_for('kmetija', id_kmetije=k.id) }}">
+                        <strong>{{ k.ime_kmetije }}</strong>
+                    </a>
+                </td>
+                <td>{{ k.vrsta_kmetije or '–' }}</td>
+                <td>{{ k.kraj or '–' }}</td>
+                <td>
+                    {% if k.regija %}
+                        <a class="regija-link"
+                           href="{{ url_for('regija', ime_regije=k.regija) }}">{{ k.regija }}</a>
+                    {% else %}–{% endif %}
+                </td>
+                <td>{{ k.delovni_cas or '–' }}</td>
+                <td>{{ k.st_izdelkov }}</td>
+                <td>{{ telefon(k.telefonska_stevilka) }}</td>
+                <td>
+                    {% if k.spletna_stran %}
+                        <a class="web-link" href="{{ k.spletna_stran }}"
+                           target="_blank" rel="noopener">Obišči</a>
+                    {% else %}–{% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

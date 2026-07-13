@@ -1,42 +1,17 @@
 {% extends "base.html" %}
-
-{% block title %}Domača stran - Kmetijski trg{% endblock %}
+{% block title %}Kmetijski trg - Kmetije{% endblock %}
 
 {% block content %}
 <main class="main">
     <div class="section-header">
-        <h2 class="section-title">Dobrodošli na lokalni tržnici</h2>
+        <h2 class="section-title">Lokalne kmetije</h2>
+        <span class="section-pill">{{ kmetije | length }} kmetij</span>
     </div>
 
-    <h1>Seznam lokalnih kmetij</h1>
-        <table>
-        <tr>
-            <th>Ime kmetije</th>
-            <th>Vrsta</th>
-            <th>Kraj</th>
-            <th>Regija</th>
-            <th>Telefon</th>
-            <th>Spletna stran</th>
-        </tr>
-        {% for k in kmetije %}
-        <tr>
-            <td>{{ k.ime_kmetije }}</td>
-            <td>{{ k.vrsta_kmetije }}</td>
-            <td>{{ k.kraj }}</td>
-            <td><a href="/region/{{ k.regija }}">{{ k.regija }}</a></td>
-            <td>
-
-                {{ k.telefonska_stevilka[:3] }}
-
-                {{ k.telefonska_stevilka[3:6] }}
-
-                {{ k.telefonska_stevilka[6:] }}
-
-            </td>
-            <td><a href="{{ k.spletna_stran }}" target="_blank">{{ k.spletna_stran }}</a></td>
-        </tr>
-        {% endfor %}
-    </table>
-
+    {% if kmetije %}
+        {% include "partials/_farms_table.html" %}
+    {% else %}
+        <p class="empty-note">Trenutno ni vpisanih kmetij.</p>
+    {% endif %}
 </main>
 {% endblock %}

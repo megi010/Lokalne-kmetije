@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Registracija - Kmetijski trg{% endblock %}
+
+{% block content %}
+<main class="main main-center">
+    <div class="form-box form-narrow">
+        <span class="form-emoji">🌱</span>
+        <h2 class="section-title center">Ustvari račun</h2>
+        <p class="muted center">Geslo se v bazo shrani zgoščeno (hash).</p>
+
+        <form method="POST">
+            <label class="field-label" for="ime">Ime in priimek</label>
+            <input type="text" name="ime" id="ime" class="field-input" required>
+
+            <label class="field-label" for="email">E-poštni naslov</label>
+            <input type="email" name="email" id="email" class="field-input" required>
+
+            <label class="field-label" for="geslo">Geslo (vsaj 4 znaki)</label>
+            <input type="password" name="geslo" id="geslo" class="field-input"
+                   minlength="4" required>
+
+            <label class="field-label" for="tip">Tip računa</label>
+            <select name="tip" id="tip" class="field-input">
+                <option value="kupec">Kupec</option>
+                <option value="lastnik kmetije">Lastnik kmetije</option>
+            </select>
+
+            <button type="submit" class="btn-primary btn-block">Registriraj se</button>
+        </form>
+
+        <p class="muted center">
+            Že imaš račun?
+            <a class="web-link" href="{{ url_for('prijava') }}">Prijavi se</a>
+        </p>
+    </div>
+</main>
+{% endblock %}

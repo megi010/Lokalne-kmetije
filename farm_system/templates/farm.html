@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% from "partials/_macros.html" import telefon %}
+{% block title %}{{ kmetija.ime_kmetije }} - Kmetijski trg{% endblock %}
+
+{% block content %}
+<main class="main">
+    <a class="back-link" href="{{ url_for('kmetije') }}">← Nazaj na kmetije</a>
+
+    <div class="detail-grid">
+        <div class="detail-box">
+            <span class="card-badge badge-zelenjava">{{ kmetija.vrsta_kmetije or 'kmetija' }}</span>
+            <h1 class="detail-title">{{ kmetija.ime_kmetije }}</h1>
+            <p class="card-farm">
+                {{ kmetija.kraj or '–' }} &middot;
+                {% if kmetija.regija %}
+                    <a class="regija-link"
+                       href="{{ url_for('regija', ime_regije=kmetija.regija) }}">{{ kmetija.regija }}</a>
+                {% endif %}
+            </p>
+            <p>Lastnik: <strong>{{ kmetija.lastnik }}</strong></p>
+            <p>Delovni čas: {{ kmetija.delovni_cas or '–' }}</p>
+            <p>Telefon: {{ telefon(kmetija.telefonska_stevilka) }}</p>
+            <p>
+                {% if kmetija.spletna_stran %}
+                    <a class="web-link" href="{{ kmetija.spletna_stran }}"
+                       target="_blank" rel="noopener">{{ kmetija.spletna_stran }}</a>
+                {% endif %}
+            </p>
+
+            {% if sme_urejati %}
+                <div class="admin-row">
+                    <a class="btn-outline btn-dark"
+                       href="{{ url_for('uredi_kmetijo', id_kmetije=kmetija.id) }}">✏️ Uredi kmetijo</a>
+                    <a class="btn-primary"
+                       href="{{ url_for('nov_izdelek', id_kmetije=kmetija.id) }}">➕ Dodaj izdelek</a>
+                    <form method="POST"
+                          action="{{ url_for('izbrisi_kmetijo', id_kmetije=kmetija.id) }}"
+                          onsubmit="return confirm('Res želiš izbrisati to kmetijo in vse njene izdelke?');">
+                        <button type="submit" class="btn-danger">🗑️ Izbriši</button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="detail-box">
+            <h3 class="section-title">Na kratko</h3>
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <span class="stat-num">{{ kmetija.st_izdelkov }}</span>
+                    <span class="stat-label">Izdelkov</span>
+                </div>
+            </div>
+            <p class="muted">
+                Vsi izdelki te kmetije so navedeni spodaj. Cene in zaloge
+                sproti ureja lastnik kmetije.
+            </p>
+        </div>
+    </div>
+
+    <div class="section-header">
+        <h2 class="section-title">Izdelki kmetije</h2>
+        <span class="section-pill">{{ izdelki | length }} izdelkov</span>
+    </div>
+
+    {% if izdelki %}
+        <div class="card-grid">
+            {% for i in izdelki %}
+                {% include "partials/_product_card.html" %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="empty-note">Ta kmetija še nima izdelkov.</p>
+    {% endif %}
+</main>
+{% endblock %}

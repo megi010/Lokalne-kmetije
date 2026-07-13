@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}{{ naslov }} - Kmetijski trg{% endblock %}
+
+{% block content %}
+<main class="main">
+    <a class="back-link" href="{{ url_for('moja_kmetija') }}">← Nazaj na mojo kmetijo</a>
+
+    <div class="section-header">
+        <h2 class="section-title">{{ naslov }}</h2>
+    </div>
+
+    <div class="form-box form-narrow">
+        <form method="POST">
+            <label class="field-label" for="ime_kmetije">Ime kmetije *</label>
+            <input type="text" name="ime_kmetije" id="ime_kmetije" class="field-input"
+                   value="{{ kmetija.ime_kmetije if kmetija else '' }}"
+                   placeholder="Kmetija Novak" required>
+
+            <label class="field-label" for="vrsta_kmetije">Vrsta kmetije</label>
+            <input type="text" name="vrsta_kmetije" id="vrsta_kmetije" class="field-input"
+                   value="{{ kmetija.vrsta_kmetije if kmetija else '' }}"
+                   placeholder="čebelarstvo, sadjarstvo, ekološka …">
+
+            <label class="field-label" for="delovni_cas">Delovni čas</label>
+            <input type="text" name="delovni_cas" id="delovni_cas" class="field-input"
+                   value="{{ kmetija.delovni_cas if kmetija else '' }}"
+                   placeholder="Pon-Pet 8:00-16:00">
+
+            <label class="field-label" for="kraj">Kraj</label>
+            <input type="text" name="kraj" id="kraj" class="field-input"
+                   value="{{ kmetija.kraj if kmetija else '' }}" placeholder="Bled">
+
+            <label class="field-label" for="regija">Regija</label>
+            <input type="text" name="regija" id="regija" class="field-input"
+                   value="{{ kmetija.regija if kmetija else '' }}"
+                   placeholder="Gorenjska">
+
+            <label class="field-label" for="telefonska_stevilka">
+                Telefonska številka (9 števk)
+            </label>
+            <input type="text" name="telefonska_stevilka" id="telefonska_stevilka"
+                   class="field-input" pattern="[0-9 \-/]*"
+                   value="{{ kmetija.telefonska_stevilka if kmetija else '' }}"
+                   placeholder="041123456">
+
+            <label class="field-label" for="spletna_stran">Spletna stran</label>
+            <input type="url" name="spletna_stran" id="spletna_stran" class="field-input"
+                   value="{{ kmetija.spletna_stran if kmetija else '' }}"
+                   placeholder="https://www.kmetija-novak.si">
+
+            <button type="submit" class="btn-primary btn-block">Shrani</button>
+        </form>
+        <p class="hint">Polja z zvezdico (*) so obvezna.</p>
+    </div>
+</main>
+{% endblock %}

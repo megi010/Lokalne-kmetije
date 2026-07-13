@@ -1,0 +1,18 @@
+{# Skupni makri, ki jih uporablja več predlog. #}
+
+{% macro telefon(stevilka) -%}
+    {%- if stevilka -%}
+        {%- set t = stevilka | string -%}
+        {{ t[:3] }} {{ t[3:6] }} {{ t[6:] }}
+    {%- else -%}
+        &ndash;
+    {%- endif -%}
+{%- endmacro %}
+
+{% macro zvezdice(ocena, st_ocen) -%}
+    {%- if ocena -%}
+        ⭐ {{ ocena }}/5 <span class="muted">({{ st_ocen }})</span>
+    {%- else -%}
+        <span class="muted">Še ni ocen</span>
+    {%- endif -%}
+{%- endmacro %}
