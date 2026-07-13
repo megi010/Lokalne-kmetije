@@ -115,7 +115,7 @@ Koda je strogo razdeljena po arhitekturnem vzorcu **MVC (Model-View-Controller)*
 Lokalne-kmetije/
 ├── README.md                # Ta dokumentacija
 ├── LICENSE                  # Licenčna datoteka
-├── er_diagram.jpg          # Konceptualni (Chen) ER diagram
+├── er_diagram.jpg          # ER diagram
 └── farm_system/
     ├── database.py          # Nizkonivojski sloj (povezava, query() / execute() in transakcije)
     ├── model.py             # MODEL: Edini modul v aplikaciji, ki vsebuje SQL poizvedbe in poslovno logiko
