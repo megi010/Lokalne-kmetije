@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% from "partials/_macros.html" import telefon %}
-{% block title %}{{ izdelek.ime_izdelka }} - Kmetijski trg{% endblock %}
+{% block title %}{{ izdelek.ime_izdelka }} - Lokalna tržnica{% endblock %}
 
 {% block content %}
 <main class="main">
@@ -106,7 +106,7 @@
             {% endfor %}
         </div>
     {% else %}
-        <p class="empty-note">Ta izdelek še nima ocen. Bodi prva!</p>
+        <p class="empty-note">Ta izdelek še nima ocen. Bodi prvi!</p>
     {% endif %}
 
     {% if uporabnik_ime %}

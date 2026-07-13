@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Košarica - Kmetijski trg{% endblock %}
+{% block title %}Košarica - Lokalna tržnica{% endblock %}
 
 {% block content %}
 <main class="main">
@@ -60,7 +60,6 @@
             <form method="POST" action="{{ url_for('oddaj_narocilo') }}">
                 <button type="submit" class="btn-primary">💳 Oddaj naročilo</button>
             </form>
-            <p class="muted">Ob oddaji se zaloga izdelkov zmanjša v eni transakciji.</p>
         </div>
     {% else %}
         <div class="empty-box">

@@ -3,7 +3,7 @@
 Zagon:  python load_data.py   (po `python init_db.py`)
 
 Gesla iz `users.csv` so v CSV zapisana v čistopisu (samo za testne podatke),
-ob uvozu pa jih zgostimo (hash), tako da v bazi golega gesla nikoli ni.
+ob uvozu pa jih zgostimo (hash), tako da v bazi dobesednega gesla nikoli ni.
 """
 
 import csv
@@ -11,7 +11,7 @@ import os
 import sqlite3
 from datetime import datetime
 
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash #zgositev gesel
 
 from database import get_connection
 

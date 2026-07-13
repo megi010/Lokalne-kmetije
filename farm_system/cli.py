@@ -7,9 +7,7 @@ Zagon:  python cli.py
 """
 
 import sys
-
 import model
-
 
 # =====================================================================
 # POMOŽNE FUNKCIJE ZA VNOS
